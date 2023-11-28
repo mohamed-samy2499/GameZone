@@ -13,5 +13,15 @@
         "font/bootstrap-icons.min.css"
       ]
     }
+  ,
+{
+  "provider": "cdnjs",
+  "library": "select2@4.0.13",
+  "destination": "wwwroot/lib/select2/",
+  "files": [
+    "js/select2.min.js",
+    "css/select2.min.css"
   ]
+}
+]
 }
