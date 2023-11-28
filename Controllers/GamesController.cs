@@ -5,11 +5,12 @@ using GameZone.Services;
 namespace GameZone.Controllers
 {
     public class GamesController(ApplicationDbContext context,ICategoriesService categoriesService
-        , IDevicesService devicesService) : Controller
+        , IDevicesService devicesService, IGemesService gemesServices) : Controller
     {
         private readonly ApplicationDbContext _context = context;
         private readonly ICategoriesService _categoriesService = categoriesService;
         private readonly IDevicesService _devicesService = devicesService;
+        private readonly IGemesService _gemesServices = gemesServices;
 
         public IActionResult Index()
         {
@@ -29,7 +30,7 @@ namespace GameZone.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreateGameFormViewModel model)
+        public async Task<IActionResult> CreateAsync(CreateGameFormViewModel model)
         {
             if(!ModelState.IsValid)
             {
@@ -38,6 +39,7 @@ namespace GameZone.Controllers
                 return View(model);
             }
 
+            await _gemesServices.Create(model);
             return RedirectToAction(nameof(Index));
         }
     }
