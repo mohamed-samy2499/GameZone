@@ -3,7 +3,10 @@
 @{
     ViewData["Title"] = "Games";
 }
-
+<a class="btn btn-secondary btn-lg" asp-action="Create">
+    <i class="bi bi-plus-circle-dotted"></i>
+    Add Game
+</a>
 @if(!Model.Any())
 {
     <div class="alert alert-warning mt-5">
