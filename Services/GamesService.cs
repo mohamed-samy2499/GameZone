@@ -83,6 +83,22 @@ namespace GameZone.Services
                 return null;
             }
         }
+        public bool Delete(int id)
+        {
+            bool isDeleted = false;
+            var game = _context.Games.Find(id);
+            if(game is null)
+                return isDeleted;
+            _context.Games.Remove(game);
+            var effectedRows = _context.SaveChanges();
+            if(effectedRows > 0)
+            {
+                var cover = Path.Combine(_imagesPath, game.Cover);
+                File.Delete(cover);
+                isDeleted = true;
+            }
+            return isDeleted;
+        }
         private async Task<string> SaveCover(IFormFile cover)
         {
             var coverName = $"{Guid.NewGuid()}{Path.GetExtension(cover.FileName)}";
@@ -92,5 +108,6 @@ namespace GameZone.Services
             return coverName;
         }
 
+        
     }
 }
