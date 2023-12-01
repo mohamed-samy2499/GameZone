@@ -1,5 +1,6 @@
 ﻿
 
+
 namespace GameZone.Services
 {
     public class GamesService : IGemesService
@@ -16,7 +17,7 @@ namespace GameZone.Services
         }
         public async Task Create(CreateGameFormViewModel model)
         {
-            var coverName = $"{Guid.NewGuid()}+{Path.GetExtension(model.Cover.FileName)}";
+            var coverName = $"{Guid.NewGuid()}{Path.GetExtension(model.Cover.FileName)}";
             var path = Path.Combine(_imagesPath, coverName);    
             using var stream = File.Create(path);
             await model.Cover.CopyToAsync(stream);
@@ -31,6 +32,25 @@ namespace GameZone.Services
 
             _context.Add(game);
             _context.SaveChanges();
+        }
+
+        public IEnumerable<Game> GetAll()
+        {
+            return _context.Games
+                .Include(g => g.Category)
+                .Include(g => g.GameDevices)
+                .ThenInclude(d => d.Device)
+                .AsNoTracking()
+                .ToList();
+        }
+        public Game? GetById(int id)
+        {
+            return _context.Games
+                .Include(g => g.Category)
+                .Include(g => g.GameDevices)
+                .ThenInclude(d => d.Device)
+                .AsNoTracking()
+                .SingleOrDefault(g => g.Id == id);
         }
     }
 }

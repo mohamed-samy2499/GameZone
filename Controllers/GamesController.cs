@@ -5,16 +5,24 @@ using GameZone.Services;
 namespace GameZone.Controllers
 {
     public class GamesController(ApplicationDbContext context,ICategoriesService categoriesService
-        , IDevicesService devicesService, IGemesService gemesServices) : Controller
+        , IDevicesService devicesService, IGemesService gemesService) : Controller
     {
         private readonly ApplicationDbContext _context = context;
         private readonly ICategoriesService _categoriesService = categoriesService;
         private readonly IDevicesService _devicesService = devicesService;
-        private readonly IGemesService _gemesServices = gemesServices;
+        private readonly IGemesService _gamesService = gemesService;
 
         public IActionResult Index()
         {
-            return View();
+            var games = _gamesService.GetAll();
+            return View(games);
+        }
+        public IActionResult Details(int id)
+        {
+            var game = _gamesService.GetById(id);
+            if (game is null)
+                return NotFound();
+            return View(game);
         }
         [HttpGet]
         public IActionResult Create()
@@ -39,7 +47,7 @@ namespace GameZone.Controllers
                 return View(model);
             }
 
-            await _gemesServices.Create(model);
+            await _gamesService.Create(model);
             return RedirectToAction(nameof(Index));
         }
     }
