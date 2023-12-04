@@ -1,0 +1,58 @@
+﻿
+
+
+
+
+@model IEnumerable<IdentityUser>
+
+@{
+    ViewData["Title"] = "Users";
+}
+<a class="btn btn-secondary btn-lg" asp-action="Create">
+    <i class="bi bi-plus-circle-dotted"></i>
+    Add User
+</a>
+@if(!Model.Any())
+{
+    <div class="alert alert-warning mt-5">
+      <h4 class="alert-heading">No Users!</h4>
+      <p class="mb-0">No users were added yet.</p>
+    </div>
+}
+else
+{
+    <div class="mt-5">
+        <table class="table table-bordered border-primary">
+            <thead>
+                <tr>
+                    <th class="">@Html.DisplayNameFor(m => m.Id)</th>
+                    <th class="">@Html.DisplayNameFor(m => m.UserName)</th>
+                    <th class="">@Html.DisplayNameFor(m => m.Email)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var user in Model){
+                    <tr class="border-1 border-success ">
+                        <td>@user.Id</td>
+
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                        <td class="align-middle">
+                            <div class="d-flex justify-content-end">
+                                <a class="btn btn-info btn-rounded rounded-3 me-2" asp-action="Edit" asp-route-id="@user.Id">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <a href="javascript:;" class="btn btn-danger btn-rounded rounded-3 js-delete" data-id="@user.Id">
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+@section Scripts{
+    <script src="~/js/user-index.js" asp-append-version="true"></script>
+}

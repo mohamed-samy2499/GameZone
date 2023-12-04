@@ -1,0 +1,51 @@
+﻿@model IEnumerable<IdentityRole>
+@{
+    ViewData["Title"] = "Roles";
+}
+<a class="btn btn-secondary btn-lg" asp-action="Create">
+    <i class="bi bi-plus-circle-dotted"></i>
+    Add Role
+</a>
+@if (!Model.Any())
+{
+    <div class="alert alert-warning mt-5">
+        <h4 class="alert-heading">No Roles!</h4>
+        <p class="mb-0">No roles were added yet.</p>
+    </div>
+}
+else
+{
+    <div class="mt-5">
+        <table class="table table-bordered border-primary">
+            <thead>
+                <tr>
+                    <th class="">@Html.DisplayNameFor(m => m.Id)</th>
+                    <th class="">@Html.DisplayNameFor(m => m.Name)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model)
+                {
+                    <tr class="border-1 border-success ">
+                        <td>@role.Id</td>
+
+                        <td>@role.Name</td>
+                        <td class="align-middle">
+                            <div class="d-flex justify-content-end">
+                                <a class="btn btn-info btn-rounded rounded-3 me-2" asp-action="Edit" asp-route-id="@role.Id">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <a href="javascript:;" class="btn btn-danger btn-rounded rounded-3 js-delete" data-id="@role.Id">
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+@section Scripts {
+    <script src="~/js/games-index.js" asp-append-version="true"></script>
+}

@@ -2,8 +2,10 @@
 {
     public class UserInRoleViewModel
     {
-        public string UserId { get; set; }
-        public string UserName { get; set; }
+        [Required]
+        public string UserId { get; set; } = default!;
+        [Required]
+        public string UserName { get; set; } = default!;
 
         public bool IsSelected { get; set; }
     }

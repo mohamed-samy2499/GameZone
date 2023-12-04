@@ -32,6 +32,37 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Games" asp-action="Index">Games</a>
                         </li>
+                        @if (signInManager.Context.User.Identity.IsAuthenticated && signInManager.Context.User.IsInRole("admin"))
+                        {
+                            
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="User" asp-action="Index">Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Role" asp-action="Index">Roles</a>
+                            </li>
+                        }
+
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (signInManager.Context.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link text-dark">Welcome, @signInManager.Context.User.Identity.Name!</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="SignOut">Sign Out</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

@@ -89,4 +89,12 @@ div:where(.swal2-container) div:where(.swal2-popup) {
     background: #1a0933;
 }
 /* End Override SweetAlert2 */
+/*Custom style for checkbox*/
+.form-check-input {
+    width: 20px; /* Adjust width as needed */
+    height: 20px; /* Adjust height as needed */
+    margin-top: 0.2rem; /* Adjust margin as needed */
+    border: 1px solid white;
+}
+/*end custom style for checkbox*/
 /*Custom Styles End*/

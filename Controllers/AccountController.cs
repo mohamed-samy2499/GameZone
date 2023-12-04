@@ -1,4 +1,5 @@
 ﻿using GameZone.ViewModels.AccountViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Controllers
