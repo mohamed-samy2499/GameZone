@@ -65,7 +65,8 @@
                   </div>
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                    <button type="submit" class="btn btn-primary btn-lg m-2">Register</button>
+                    <button type="button" onclick="Register()" class="btn btn-info btn-lg m-2 ">Login</button>
                   </div>
 
                 </form>
@@ -87,5 +88,10 @@
 
 
 @section Scripts {
+    <script>
+        function Register() {
+            window.location.href = "@Url.Action("Login", "Account")";
+        }
+    </script>
     <partial name="_ValidationScriptsPartial" />
 }

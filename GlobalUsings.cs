@@ -6,6 +6,9 @@ global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using System.Net.Mail;
 global using System.Net;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Mvc.Filters;
+
 
 global using GameZone.Data;
 global using GameZone.Attributes;

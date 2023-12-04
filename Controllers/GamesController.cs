@@ -1,9 +1,11 @@
 ﻿
 
 using GameZone.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameZone.Controllers
 {
+    [Authorize(Roles ="admin")]
     public class GamesController(ApplicationDbContext context,ICategoriesService categoriesService
         , IDevicesService devicesService, IGemesService gemesService) : Controller
     {
@@ -17,6 +19,7 @@ namespace GameZone.Controllers
             var games = _gamesService.GetAll();
             return View(games);
         }
+        [AllowAnonymous]
         public IActionResult Details(int id)
         {
             var game = _gamesService.GetById(id);
