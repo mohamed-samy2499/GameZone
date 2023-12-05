@@ -8,11 +8,13 @@ namespace GameZone.Controllers
     {
         public UserManager<IdentityUser> UserManager { get; }
         public SignInManager<IdentityUser> SignInManager { get; }
+        private readonly IMailingService _mailingService;
         #region Constructor
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IMailingService mailingService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _mailingService = mailingService;
         }
         #endregion
         #region Sign up
@@ -91,12 +93,13 @@ namespace GameZone.Controllers
                 {
                     var Token = await UserManager.GeneratePasswordResetTokenAsync(user);
                     var ResetPasswordLink = Url.Action("ResetPassword", "Account", new { Email = user.Email, Token = Token }, Request.Scheme);
-                    var email = new Email()
-                    {
-                        Title = "Reset Password",
-                        Body = ResetPasswordLink
-                    };
-                    EmailSettings.SendEmail(email, user);
+                    var subject = "Reset Password";
+                    var body = $@"<p>Click the button below to reset your password:</p>
+                                <a href='{ResetPasswordLink}' 
+                                style='display: inline-block; padding: 10px 20px; background-color: #007bff;
+                                color: #fff; text-decoration: none; border-radius: 5px;'>Reset Password</a>
+                                <p>If you did not request a password reset, please ignore this email.</p>";
+                    await _mailingService.SendEmailAsync(model.Email, subject, body);
                     return RedirectToAction(nameof(CompleteForgotPassword));
                 }
             }

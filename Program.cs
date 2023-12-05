@@ -1,7 +1,8 @@
 
 
-var builder = WebApplication.CreateBuilder(args);
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
     ?? throw new InvalidOperationException("no conection string was found");
@@ -15,6 +16,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICategoriesService,CategoriesService>();
 builder.Services.AddScoped<IDevicesService, DevicesService>();
 builder.Services.AddScoped<IGemesService, GamesService>();
+builder.Services.AddScoped<IMailingService, MailingService>();
 
 
 var app = builder.Build();

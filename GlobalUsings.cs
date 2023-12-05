@@ -4,10 +4,14 @@ global using Microsoft.AspNetCore.Mvc.Rendering;
 global using System.ComponentModel.DataAnnotations;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-global using System.Net.Mail;
-global using System.Net;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc.Filters;
+global using MailKit;
+global using MimeKit;
+global using MailKit.Net.Smtp;
+global using Microsoft.Extensions.Options;
+global using MailKit.Security;
+global using GameZone.Services.Mailing;
 
 
 global using GameZone.Data;
