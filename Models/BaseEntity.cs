@@ -6,5 +6,6 @@
 
         [MaxLength(250)]
         public string Name { get; set; } = string.Empty;
+        public bool IsDeleted { get; set; }
     }
 }
