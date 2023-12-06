@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "superadmin")]
+
 
     public class RoleController : Controller
     {

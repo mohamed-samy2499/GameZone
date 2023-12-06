@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "superadmin")]
 
     public class UserController : Controller
     {
@@ -26,7 +26,44 @@ namespace GameZone.Controllers
             return View(Users);
         }
         #endregion
+        #region Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = new IdentityUser
+                    {
 
+                        UserName = model.Name,
+                        Email = model.Email
+                    };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                        return RedirectToAction("Index");
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+        #endregion
         #region Details
         public async Task<IActionResult> Details(string id, string ViewName = "Details")
         {

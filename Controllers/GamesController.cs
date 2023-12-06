@@ -87,6 +87,7 @@ namespace GameZone.Controllers
                 return BadRequest();
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles ="superadmin")]
         [HttpDelete]
         public IActionResult Delete(int id)
         {
